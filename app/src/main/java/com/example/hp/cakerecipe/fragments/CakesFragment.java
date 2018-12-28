@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.hp.cakerecipe.R;
 import com.example.hp.cakerecipe.adapters.CakesAdapter;
+import com.example.hp.cakerecipe.services.DataService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,13 +21,16 @@ import com.example.hp.cakerecipe.adapters.CakesAdapter;
 public class CakesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CAKES_TYPE = "cakeType";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+
+
+    public static final int CAKE_TYPE_0 = 0;
+    public static final int CAKE_TYPE_1 = 1;
+    public static final int CAKE_TYPE_2 = 2;
+
+    private static int cakeType;
 
     public CakesFragment() {
         // Required empty public constructor
@@ -36,16 +40,14 @@ public class CakesFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param cakeType Cake Type.
      * @return A new instance of fragment CakesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CakesFragment newInstance(String param1, String param2) {
+    public static CakesFragment newInstance(int cakeType) {
         CakesFragment fragment = new CakesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_CAKES_TYPE, cakeType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +56,7 @@ public class CakesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+                cakeType = getArguments().getInt(ARG_CAKES_TYPE);
         }
     }
 
@@ -66,7 +67,14 @@ public class CakesFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerCakes);
         recyclerView.setHasFixedSize(true);
 
-        CakesAdapter cakesAdapter = new CakesAdapter();
+        CakesAdapter cakesAdapter;
+        if(cakeType == CAKE_TYPE_0){
+            cakesAdapter = new CakesAdapter(DataService.getInstance().getTypeOneCakes());
+        }else if(cakeType == CAKE_TYPE_1){
+            cakesAdapter = new CakesAdapter(DataService.getInstance().getTypeTwoCakes());
+        }else{
+            cakesAdapter = new CakesAdapter(DataService.getInstance().getTypeThreeCakes());
+        }
         recyclerView.setAdapter(cakesAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

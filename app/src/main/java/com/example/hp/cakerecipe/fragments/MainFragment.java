@@ -40,19 +40,19 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        CakesFragment cakesTopFragment;
-//        CakesFragment cakesMiddileFragment;
-//        CakesFragment cakesBottomFragment;
-//
-//        cakesTopFragment = CakesFragment.newInstance("a","b");
-//        fragmentManager.beginTransaction().add(R.id.containerTopRow,cakesTopFragment).commit();
-//
-//        cakesMiddileFragment = CakesFragment.newInstance("a","b");
-//        fragmentManager.beginTransaction().add(R.id.containerBottomRow,cakesTopFragment).commit();
-//
-//        cakesBottomFragment = CakesFragment.newInstance("a","b");
-//        fragmentManager.beginTransaction().add(R.id.containerBottomRow,cakesTopFragment).commit();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        CakesFragment cakesTopFragment;
+        CakesFragment cakesMiddileFragment;
+        CakesFragment cakesBottomFragment;
+
+        cakesTopFragment = CakesFragment.newInstance(CakesFragment.CAKE_TYPE_0);
+        fragmentManager.beginTransaction().add(R.id.containerTopRow,cakesTopFragment).commit();
+
+        cakesMiddileFragment = CakesFragment.newInstance(CakesFragment.CAKE_TYPE_1);
+        fragmentManager.beginTransaction().add(R.id.containerMiddleRow,cakesMiddileFragment).commit();
+
+        cakesBottomFragment = CakesFragment.newInstance(CakesFragment.CAKE_TYPE_2);
+        fragmentManager.beginTransaction().add(R.id.containerBottomRow,cakesBottomFragment).commit();
 
         return view;
     }
