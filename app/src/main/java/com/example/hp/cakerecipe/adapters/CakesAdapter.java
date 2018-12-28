@@ -2,11 +2,13 @@ package com.example.hp.cakerecipe.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hp.cakerecipe.R;
+import com.example.hp.cakerecipe.activities.MainActivity;
 import com.example.hp.cakerecipe.holders.CakeHolder;
 import com.example.hp.cakerecipe.model.Cakes;
 
@@ -35,8 +37,16 @@ public class CakesAdapter extends RecyclerView.Adapter<CakeHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CakeHolder cakeHolder, int i) {
-        Cakes cake = cakes.get(i);
+    public void onBindViewHolder(@NonNull CakeHolder cakeHolder, final int position) {
+        final Cakes cake = cakes.get(position);
         cakeHolder.updateUi(cake);
+
+        cakeHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("1MAPS","work in postion : "+ position);
+                MainActivity.getMainActivity().loadDetailScreen();
+            }
+        });
     }
 }

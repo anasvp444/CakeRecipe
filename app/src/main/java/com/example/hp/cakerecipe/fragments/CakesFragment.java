@@ -1,7 +1,9 @@
 package com.example.hp.cakerecipe.fragments;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -75,6 +77,8 @@ public class CakesFragment extends Fragment {
         }else{
             cakesAdapter = new CakesAdapter(DataService.getInstance().getTypeThreeCakes());
         }
+
+        recyclerView.addItemDecoration(new HorizontalSpaceDecorator(30));
         recyclerView.setAdapter(cakesAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -84,4 +88,19 @@ public class CakesFragment extends Fragment {
         return view;
     }
 
+}
+
+class HorizontalSpaceDecorator extends RecyclerView.ItemDecoration{
+    private final int spacer;
+
+    public HorizontalSpaceDecorator(int spacer) {
+        this.spacer = spacer;
+    }
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        super.getItemOffsets(outRect, view, parent, state);
+
+        outRect.right = spacer;
+    }
 }
